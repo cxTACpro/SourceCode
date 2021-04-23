@@ -1,0 +1,212 @@
+public bool isRobloxOpen()
+		{
+			return Process.GetProcessesByName("RobloxPlayerBeta").Length >= 1;
+		}
+
+		public void Inject()
+		{
+			bool flag = !this.isRobloxOpen();
+			bool flag4 = flag;
+			if (flag4)
+			{
+				MessageBox.Show("Roblox is not running!", "api", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+			}
+			else
+			{
+				bool flag2 = this.isOXygenUAttached();
+				bool flag5 = flag2;
+				if (flag5)
+				{
+					MessageBox.Show("API is already attached!", "api", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+				}
+				else
+				{
+					string text = Form1.injectionMethod;
+					string a = text;
+					bool flag6 = !(a == "normal");
+					if (flag6)
+					{
+						bool flag7 = a == "puppy";
+						if (flag7)
+						{
+							this.puppyInject();
+						}
+					}
+					else
+					{
+						bool flag3 = !File.Exists(Directory.GetCurrentDirectory() + "/Injector.dll");
+						bool flag8 = flag3;
+						if (flag8)
+						{
+							MessageBox.Show("Injector dll not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+						}
+						else
+						{
+							Form1.Equalss();
+						}
+					}
+				}
+			}
+		}
+
+		private void puppyInject()
+		{
+			new Process
+			{
+				StartInfo =
+				{
+					Arguments = Directory.GetCurrentDirectory() + "\\OxygenBytecode.dll",
+					FileName = Directory.GetCurrentDirectory() + "\\poo\\Injector.exe",
+					WindowStyle = ProcessWindowStyle.Normal
+				}
+			}.Start();
+		}
+
+		[DllImport("Injector.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "main")]
+		private static extern int Equalss();
+
+		public bool isOXygenUAttached()
+		{
+			return Pipe.NamedPipeExist(Form1.pipe);
+		}
+
+		public void imp()
+		{
+
+			new WebClient
+			{
+				Proxy = null
+			}.DownloadFile(Form1.downloadAPI, path + "OxygenBytecode.dll");
+			bool flag = File.Exists("OxygenBytecode.vmp.dll");
+			if (flag)
+			{
+				Process.Start("RenamR.exe");
+
+				Process[] rename = Process.GetProcessesByName("RobloxPlayerBeta");
+				for (int x = 0; x < rename.Length; x++)
+				{
+					rename[x].Kill();
+				}
+			}
+		}
+
+		public void impo()
+		{
+			new WebClient
+			{
+				Proxy = null
+			}.DownloadFile(Form1.downloadInjector, path + "Injector.dll");
+
+		}
+
+		public void KillRoblox()
+		{
+			Process[] rbx = Process.GetProcessesByName("RobloxPlayerBeta");
+			for (int x = 0; x < rbx.Length; x++)
+			{
+				rbx[x].Kill();
+			}
+		}
+
+		public void IntializeUpdates()
+		{
+			bool flag = File.Exists(Form1.peepee);
+			bool flag4 = flag;
+			if (flag4)
+			{
+				bool flag2 = !this.isOXygenUAttached();
+				bool flag5 = flag2;
+				if (flag5)
+				{
+					try
+					{
+						File.Delete(Form1.peepee);
+						new WebClient().DownloadFile(Form1.downloadAPI, Form1.peepee);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("Error Found" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					}
+				}
+				else
+				{
+					MessageBox.Show("Roblox Running And Attached.", "Information.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+					this.KillRoblox();
+					bool flag3 = File.Exists(Form1.peepee);
+					bool flag6 = flag3;
+					if (flag6)
+					{
+						try
+						{
+							File.Delete(Form1.peepee);
+							new WebClient().DownloadFile(Form1.downloadAPI, Form1.peepee);
+						}
+						catch (Exception ex2)
+						{
+							MessageBox.Show("Error Found" + ex2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+						}
+					}
+				}
+			}
+			else
+			{
+				try
+				{
+					new WebClient().DownloadFile(Form1.downloadAPI, Form1.peepee);
+				}
+				catch (Exception ex3)
+				{
+					MessageBox.Show("Download Error , Error: Link Error" + ex3.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				}
+			}
+		}
+
+		public static void CreateDir()
+		{
+			bool flag4 = !Directory.Exists("Scripts");
+			bool flag7 = flag4;
+			if (flag7)
+			{
+				Directory.CreateDirectory("Scripts");
+			}
+			bool flag5 = !Directory.Exists("Workspace");
+			bool flag8 = flag5;
+			if (flag8)
+			{
+				Directory.CreateDirectory("Workspace");
+			}
+			bool flag6 = !Directory.Exists("AutoExec");
+			bool flag9 = flag6;
+			if (flag9)
+			{
+				Directory.CreateDirectory("AutoExec");
+			}
+		}
+
+		public static readonly string pipe = "OxygenU";
+
+		public static string injectionMethod = "normal";
+
+		public static string peepee = "OxygenBytecode.dll";
+
+		public static string downloadAPI = new WebClient
+		{
+			Proxy = null
+		}.DownloadString("https://oxygenu.xyz/OxygenU/Dll.txt");
+
+		private string path;
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			
+		}
+
+		private void Execute(string script)
+		{
+			Pipe.Execute(Form1.pipe, script);
+		}
+
+		public static string downloadInjector = new WebClient
+		{
+			Proxy = null
+		}.DownloadString("https://pastebin.com/raw/VW9s1A1u");
